@@ -1,13 +1,12 @@
 from typing import List
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
-from Database.schemas.cache import pack_schemas
 from Database import database
-from utils import City_code_utils
+from Database.schemas.cache import pack_schemas
 from Dependencies import get_db
-
+from utils import City_code_utils
 
 database.Database.Base.metadata.create_all(bind=database.Database.engine)
 
@@ -18,4 +17,3 @@ app = FastAPI()
 def read_city_codes(db: Session = Depends(get_db.get_db), type: str = "city"):
     city_codes = City_code_utils.CityCode().get_city_codes(db=db, type=type)
     return city_codes
-
