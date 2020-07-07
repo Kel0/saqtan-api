@@ -1,2 +1,3 @@
-from .. import Crime_count
-from .. import City_code
+# mypy: ignore-errors
+from .. import City_code  # noqa: F841,F401
+from .. import Crime_count  # noqa: F841,F401

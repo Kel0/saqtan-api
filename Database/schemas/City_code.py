@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class CityCodeBase(BaseModel):
     city_code: int
     city_name: str
-    type: Optional[str]
+    type: str
 
 
 class CityCodeCreate(CityCodeBase):

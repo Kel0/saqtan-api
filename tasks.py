@@ -39,9 +39,9 @@ def check(arg, style=True, typing=True):
         data = [json.loads(element)["app_name"] for element in data]
     apps = " ".join(app for app in data)
     if style:
-        arg.run(f"flake8 --exclude=poka {apps} lineup_checker", echo=True)
-        arg.run(f"isort --diff --recursive {apps} lineup_checker --check-only", echo=True)
-        arg.run(f"black --diff {apps} lineup_checker --check", echo=True)
+        arg.run(f"flake8 --exclude=poka {apps}", echo=True)
+        arg.run(f"isort --diff --recursive {apps} --check-only", echo=True)
+        arg.run(f"black --diff {apps} --check", echo=True)
     if typing:
         arg.run(f"mypy --no-incremental --cache-dir=/dev/null {apps}", echo=True)
 
@@ -99,9 +99,10 @@ def pack_models(arg, dirname="models"):
     with open(pack_models_file_path, "a+") as file:
         model: str
         file.truncate(0)
+        file.write("# mypy: ignore-errors\n")
 
         for model in models:
-            file.write(f"from .. import {model}\n")
+            file.write(f"from .. import {model}  # noqa: F841,F401\n")
 
 
 @invoke.task(name="packschemas")
@@ -127,9 +128,10 @@ def pack_schemas(arg, dirname="schemas"):
     with open(pack_schemas_file_path, "a+") as file:
         schema: str
         file.truncate(0)
+        file.write("# mypy: ignore-errors\n")
 
         for schema in schemas:
-            file.write(f"from .. import {schema}\n")
+            file.write(f"from .. import {schema}  # noqa: F841,F401\n")
 
 
 

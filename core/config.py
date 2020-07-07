@@ -17,6 +17,7 @@ config = Config(".env")
 
 DEBUG: bool = config("DEBUG", cast=bool, default=False)
 
+DATABASE_URL: str = config("DATABASE_URL", cast=str)
 DATABASE_HOST: str = config("DATABASE_HOST", cast=str)
 DATABASE_PORT: int = config("DATABASE_PORT", cast=int)
 DATABASE_USER: str = config("DATABASE_USER", cast=str)
