@@ -15,7 +15,9 @@ class Database:
 
     SQLALCHEMY_DATABASE_URL: str = DATABASE_URL
 
-    engine: sqlalchemy.engine.base.Engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    engine: sqlalchemy.engine.base.Engine = create_engine(
+        SQLALCHEMY_DATABASE_URL, pool_recycle=1800
+    )
     SessionLocal: sqlalchemy.orm.session.Session = sessionmaker(
         autocommit=False, autoflush=False, bind=engine
     )
