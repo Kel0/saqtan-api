@@ -56,6 +56,11 @@ Create new schema
     inv createSchema schema_name
 ```
 
+Create new util
+```
+    inv createUtil util_name
+```
+
 Pack all models
 ```
     inv packmodels
@@ -64,6 +69,11 @@ Pack all models
 Pack all schemas
 ```
     inv packschemas
+```
+
+Pack all utils
+```
+    inv packutils
 ```
 
 # Project structure
