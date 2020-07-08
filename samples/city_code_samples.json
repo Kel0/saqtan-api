@@ -1,0 +1,98 @@
+[
+  {
+    "city_code": 1963,
+    "city_name": "Семей",
+    "type": "city",
+    "id": 239
+  },
+  {
+    "city_code": 1951,
+    "city_name": "Шымкент",
+    "type": "city",
+    "id": 240
+  },
+  {
+    "city_code": 1927,
+    "city_name": "Уральск",
+    "type": "city",
+    "id": 242
+  },
+  {
+    "city_code": 1931,
+    "city_name": "Тараз",
+    "type": "city",
+    "id": 243
+  },
+  {
+    "city_code": 1919,
+    "city_name": "Талдыкорган",
+    "type": "city",
+    "id": 244
+  },
+  {
+    "city_code": 1959,
+    "city_name": "Петропавловск",
+    "type": "city",
+    "id": 245
+  },
+  {
+    "city_code": 1955,
+    "city_name": "Павлодар",
+    "type": "city",
+    "id": 246
+  },
+  {
+    "city_code": 1943,
+    "city_name": "Кызылорда",
+    "type": "city",
+    "id": 247
+  },
+  {
+    "city_code": 1939,
+    "city_name": "Костанай",
+    "type": "city",
+    "id": 248
+  },
+  {
+    "city_code": 1911,
+    "city_name": "Кокшетау",
+    "type": "city",
+    "id": 249
+  },
+  {
+    "city_code": 1935,
+    "city_name": "Караганда",
+    "type": "city",
+    "id": 250
+  },
+  {
+    "city_code": 1923,
+    "city_name": "Атырау",
+    "type": "city",
+    "id": 251
+  },
+  {
+    "city_code": 1915,
+    "city_name": "Актобе",
+    "type": "city",
+    "id": 252
+  },
+  {
+    "city_code": 1947,
+    "city_name": "Актау",
+    "type": "city",
+    "id": 253
+  },
+  {
+    "city_code": 1971,
+    "city_name": "Нур-Султан",
+    "type": "city",
+    "id": 254
+  },
+  {
+    "city_code": 1975,
+    "city_name": "Алматы",
+    "type": "city",
+    "id": 255
+  }
+]

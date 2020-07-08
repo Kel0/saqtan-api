@@ -1,0 +1,32 @@
+[
+  {
+    "YR": 2016,
+    "crimes_count": 300958,
+    "before_perc": 0,
+    "id": 1
+  },
+  {
+    "YR": 2017,
+    "crimes_count": 284430,
+    "before_perc": 5.49,
+    "id": 2
+  },
+  {
+    "YR": 2018,
+    "crimes_count": 256787,
+    "before_perc": 9.72,
+    "id": 3
+  },
+  {
+    "YR": 2019,
+    "crimes_count": 207612,
+    "before_perc": 19.15,
+    "id": 4
+  },
+  {
+    "YR": 2020,
+    "crimes_count": 69740,
+    "before_perc": 66.41,
+    "id": 5
+  }
+]

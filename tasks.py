@@ -52,9 +52,10 @@ def test(arg):
     with open("apps.txt", "r") as file:
         data = file.readlines()
         data = [json.loads(element)["app_name"] for element in data]
-    apps = " ".join(app for app in data)
+    apps = " ".join(app for app in data if app != "tests")
+
     arg.run(
-        f"pytest --cov={apps} --cov-fail-under={REQUIRED_COVERAGE} --cov-report term-missing",
+        f"pytest",
         pty=True,
         echo=True,
     )
