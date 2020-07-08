@@ -298,6 +298,8 @@ def pack_utils(arg, dirname="utils"):
             "Success. Your utils packed successfully in utils/cache directory"
         )
         print(sucess_string)
+
+        arg.run("inv packutils")
     except Exception as e:
         print(f"Fail. Something went wrong. ERROR: {e}")
         logger.error(e)
