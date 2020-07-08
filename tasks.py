@@ -248,6 +248,89 @@ def create_schema(arg, schema_name):
         logger.error(e)
 
 
+@invoke.task(name="packutils")
+def pack_utils(arg, dirname="utils"):
+    try:
+        print("Packing your utils...")
+        sucess_string = ""
+
+        base_dir: str = os.path.dirname(os.path.realpath(__file__))
+        path_to_dir: list = [
+            x[0] for x in os.walk(base_dir) if x[0].split("/")[-1] == "utils"
+        ]  # Find path to utils dir
+
+        all_files_of_utils_dir: list = list(
+            glob.glob(f"{path_to_dir[0]}/*")
+        )  # Get all files
+        all_py_files_of_utils_dir: list = list(
+            glob.glob(f"{path_to_dir[0]}/*.py")
+        )  # Get all files
+
+        if (
+            f"{path_to_dir[0]}/cache" in all_files_of_utils_dir
+        ):  # if pack_utils already exists
+            pack_utils_file_path: str = f"{path_to_dir[0]}/cache/pack_utils.py"  # Set pack_utils file path
+        else:
+            sucess_string += "Created directory cache in utils directory\n"
+            sucess_string += "Created pack_utils.py module in utils/cache directory\n"
+
+            arg.run(f"mkdir {path_to_dir[0]}/cache")
+            arg.run(
+                f"touch {path_to_dir[0]}/cache/pack_utils.py && touch {path_to_dir[0]}/cache/__init__.py"
+            )
+            pack_utils_file_path: str = f"{path_to_dir[0]}/cache/pack_utils.py"
+
+        utils: list = [
+            util.split("/")[-1][:-3]
+            for util in all_py_files_of_utils_dir
+            if (util.split("/")[-1] != "__init__.py")
+        ]
+
+        with open(pack_utils_file_path, "a+") as file:
+            util: str
+            file.truncate(0)
+            file.write("# mypy: ignore-errors\n")
+
+            for util in utils:
+                file.write(f"from .. import {util}  # noqa: F841,F401\n")
+
+        sucess_string += (
+            "Success. Your utils packed successfully in utils/cache directory"
+        )
+        print(sucess_string)
+    except Exception as e:
+        print(f"Fail. Something went wrong. ERROR: {e}")
+        logger.error(e)
+
+
+@invoke.task(name="createUtil")
+def create_util(arg, util_name):
+    try:
+        print(f"Creating util: {util_name}...")
+        success_string: str = ""
+
+        base_dir: str = os.path.dirname(os.path.realpath(__file__))
+        path_to_utils_dir: list = [
+            x[0] for x in os.walk(base_dir) if x[0].split("/")[-1] == "utils"
+        ]
+        path_to_new_util = f"{path_to_utils_dir[0]}/{util_name}"
+
+        arg.run(f"touch {path_to_new_util}")
+
+        with open(path_to_new_util, "a+") as util_file:
+            util_file.write("from loguru import logger\n")
+            util_file.write("from sqlalchemy.orm import Session\n\n")
+            util_file.write("from Database.models.cache import pack_models\n\n")
+            util_file.write("class UtilClass(object):\n   pass")
+
+        success_string += f"Util {util_name} created successfully"
+        print(success_string)
+
+    except Exception as e:
+        print(f"Fail. Something went wrong. ERROR: {e}")
+        logger.error(e)
+
+
 @invoke.task
 def hooks(arg):
     invoke_path = Path(arg.run("which invoke", hide=True).stdout[:-1])
