@@ -72,3 +72,25 @@ def read_crime_count_types(
         db=db, yr=yr, crime_code=crime_code
     )
     return crimes_with_type
+
+
+@app.get("/api/v1/crime/read", response_model=List[pack_schemas.Crime.Crime])
+def crime_read(
+    db: Session = Depends(get_db.get_db),
+    YR: int = 2016,
+    PERIOD: int = 1,
+    CITY_CODE: int = 1971,
+    DAT_VOZB: int = 0,
+    DAT_SOVER: int = 0,
+    STAT: str = 0,
+):
+    crime_features = pack_utils.Crime_utils.CrimeFeatures().crime_details_read(
+        db=db,
+        YR=YR,
+        PERIOD=PERIOD,
+        CITY_CODE=CITY_CODE,
+        DAT_VOZB=DAT_VOZB,
+        DAT_SOVER=DAT_SOVER,
+        STAT=STAT,
+    )
+    return crime_features
