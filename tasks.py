@@ -333,6 +333,44 @@ def create_util(arg, util_name):
         logger.error(e)
 
 
+@invoke.task(name="generateSchema")
+def generate_schema(arg, model):
+    type_hints = {"String": "str", "Integer": "int"}
+    if model:
+        base_dir: str = os.path.dirname(os.path.realpath(__file__))
+        path_to_models_dir: list = [
+            x[0] for x in os.walk(base_dir) if x[0].split("/")[-1] == "models"
+        ]
+        path_to_model = f"{path_to_models_dir[0]}/{model}"
+
+        path_to_schemas_dir: list = [
+            x[0] for x in os.walk(base_dir) if x[0].split("/")[-1] == "schemas"
+        ]
+        path_to_schema = f"{path_to_schemas_dir[0]}/{model}"
+
+        with open(path_to_model, "r") as model_file:
+            model_code: list = model_file.readlines()
+
+        with open(path_to_schema, "a+") as schema_file:
+            schema_file.truncate(0)
+            model_code_line: str
+
+            schema_file.write("from pydantic import BaseModel\n\n")
+            schema_file.write(f"class {model[:-3]}Base(BaseModel):\n")
+
+            for schema_code_line in model_code:
+                if "=" in schema_code_line and "__" not in schema_code_line:
+                    schema_code_line: str = schema_code_line.replace("\n", "")
+                    column_name: str = schema_code_line.split("=")[0].strip()
+                    column_type: str = schema_code_line.split("(")[1].split(",")[
+                        0
+                    ].strip()
+                    print(f"{column_name}: {type_hints[column_type]}")
+                    schema_file.write(f"  {column_name}: {type_hints[column_type]}\n")
+
+        arg.run("inv format")
+
+
 @invoke.task
 def hooks(arg):
     invoke_path = Path(arg.run("which invoke", hide=True).stdout[:-1])
