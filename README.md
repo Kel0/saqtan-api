@@ -1,7 +1,7 @@
 # Saqtan REST API
 ## Installation
 ```
-pip install invoke
+pip install invoke loguru
 inv install
 ```
 
