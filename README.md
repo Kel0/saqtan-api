@@ -76,6 +76,11 @@ Pack all utils
     inv packutils
 ```
 
+Generate schema by model
+```
+    inv generateSchema model_name
+```
+
 # Project structure
 ```
 .
